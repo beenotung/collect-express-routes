@@ -5,21 +5,35 @@
   "main": "index.js",
   "scripts": {
     "test": "tsc --noEmit",
-    "build": "tsc"
+    "build": "tsc",
+    "format": "run-s format:*",
+    "format:prettier": "prettier --write .",
+    "format:json": "format-json-cli",
+    "format:eslint": "eslint --fix --ext .ts ."
   },
   "keywords": [],
   "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",
   "license": "BSD-2-Clause",
   "peerDependencies": {
-    "express": "^4.17.1",
     "@types/express": "^4.17.13",
+    "express": "^4.17.1"
   },
   "devDependencies": {
+    "@types/chai": "^4.2.22",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^16.10.5",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "chai": "^4.3.4",
     "cors": "^2.8.5",
+    "eslint": "^7.32.0",
     "express": "^4.17.1",
+    "format-json-cli": "^1.0.1",
+    "mocha": "^9.1.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.4.1",
     "ts-node": "^10.3.0",
     "typescript": "^4.4.4"
   }

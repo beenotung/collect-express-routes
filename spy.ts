@@ -29,6 +29,7 @@ export function spyRoutes(app: IRouter) {
 
   const spyRoutes: SpyRoute[] = []
   Object.assign(app, { spyRoutes: spyRoutes })
+
   function makeSpy(method: string) {
     return function spy(...args: any[]) {
       let accPath = '/'
@@ -60,17 +61,15 @@ export function spyRoutes(app: IRouter) {
   }
 }
 
-export function getRoutes(app: IRouter): SpyRoute[] {
+export function getSpyRoutes(app: IRouter): SpyRoute[] {
   return (app as any).spyRoutes || []
 }
 
-export function summarize(app: IRouter) {
-  const spyRoutes: SpyRoute[] = getRoutes(app)
+export function groupRoutesByPath(spyRoutes: SpyRoute[]) {
   const paths_methods: Record<string, string[]> = {}
   for (const { method, path } of spyRoutes) {
     const methods = paths_methods[path] || (paths_methods[path] = [])
     methods.push(method)
   }
-  // eslint-disable-next-line no-console
-  console.log(paths_methods)
+  return paths_methods
 }

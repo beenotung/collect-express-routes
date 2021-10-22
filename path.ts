@@ -1,6 +1,11 @@
+/**
+ * Not using built-in path.join() before that is platform-sensitive (which is not suitable to web urls)
+ *  */
+
 function last(string: string): string {
   return string[string.length - 1]
 }
+
 export function join(...paths: string[]): string {
   let acc = '/'
   paths.forEach(path => {

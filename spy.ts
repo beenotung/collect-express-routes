@@ -32,6 +32,10 @@ export function spyRoutes(app: IRouter) {
 
   function makeSpy(method: string) {
     return function spy(...args: any[]) {
+      if (args[0] === 'query parser fn') {
+        // this is called when using app.route(path)
+        return app
+      }
       let accPath = '/'
       for (const arg of args) {
         if (typeof arg === 'string') {
@@ -58,6 +62,25 @@ export function spyRoutes(app: IRouter) {
 
   for (const method of spyMethods) {
     app[method] = makeSpy(method)
+  }
+
+  {
+    const Route = app.route.bind(app)
+    function spyRoute(path: string) {
+      const route = Route(path)
+      for (const method of spyMethods) {
+        if (method === 'use') {
+          // use is not a method on app.route
+          continue
+        }
+        route[method] = function() {
+          spyRoutes.push({ method, path })
+          return route
+        }
+      }
+      return route
+    }
+    app.route = spyRoute
   }
 }
 

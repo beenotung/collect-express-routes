@@ -130,4 +130,19 @@ describe('spy.ts TestSuit', () => {
       })
     })
   })
+
+  context('sub route', () => {
+    it('should work with app.route', () => {
+      const app = express()
+      spyRoutes(app)
+      app
+        .route('/books')
+        .get(noop) // match for GET /books
+        .post(noop) // match for POST /books
+      expect(getSpyRoutes(app)).to.deep.equals([
+        { method: 'get', path: '/books' },
+        { method: 'post', path: '/books' },
+      ])
+    })
+  })
 })

@@ -5,14 +5,15 @@
   "main": "spy.js",
   "types": "spy.d.ts",
   "scripts": {
-    "test": "tsc --noEmit",
-    "build": "tsc",
+    "test": "tsc --noEmit -p .",
+    "build": "tsc -p .",
+    "clean": "rimraf *.js *.js.map",
     "mocha": "ts-mocha spy.spec.ts",
     "format": "run-s format:*",
     "format:prettier": "prettier --write .",
     "format:json": "format-json-cli",
     "format:eslint": "eslint --fix --ext .ts .",
-    "prepublishOnly": "run-s test mocha build"
+    "prepublishOnly": "run-s clean test mocha build"
   },
   "keywords": [],
   "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",
@@ -35,6 +36,7 @@
     "mocha": "8",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
     "ts-mocha": "^8.0.0",
     "ts-node": "^10.3.0",
     "typescript": "^4.4.4"

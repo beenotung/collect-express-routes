@@ -12,7 +12,7 @@
     "format:prettier": "prettier --write .",
     "format:json": "format-json-cli",
     "format:eslint": "eslint --fix --ext .ts .",
-    "prepublishOnly": "npm test && npm run build"
+    "prepublishOnly": "run-s test mocha build"
   },
   "keywords": [],
   "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",

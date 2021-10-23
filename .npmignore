@@ -1,0 +1,9 @@
+*.tgz
+pnpm-lock.yaml
+.editorconfig
+.eslintignore
+.eslintrc
+.prettierignore
+.prettierrc
+tsconfig.json
+tsconfig.tsbuildinfo

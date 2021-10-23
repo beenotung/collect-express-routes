@@ -1,5 +1,6 @@
 /**
- * Not using built-in path.join() before that is platform-sensitive (which is not suitable to web urls)
+ * Not using built-in path.join() before that is platform-sensitive
+ * (which is not suitable to join web urls on windows)
  *  */
 
 function last(string: string): string {

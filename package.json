@@ -2,7 +2,8 @@
   "name": "collect-express-routes",
   "version": "0.0.0",
   "description": "Collect all API routes in Express Application / Router",
-  "main": "index.js",
+  "main": "spy.js",
+  "types": "spy.d.ts",
   "scripts": {
     "test": "tsc --noEmit",
     "build": "tsc",

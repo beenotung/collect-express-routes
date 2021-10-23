@@ -7,7 +7,7 @@
   "scripts": {
     "test": "tsc --noEmit -p .",
     "build": "tsc -p .",
-    "clean": "rimraf *.js *.js.map",
+    "clean": "rimraf *.js *.js.map tsconfig.tsbuildinfo",
     "mocha": "ts-mocha spy.spec.ts",
     "format": "run-s format:*",
     "format:prettier": "prettier --write .",

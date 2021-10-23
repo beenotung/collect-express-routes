@@ -6,10 +6,67 @@ Collect all API routes in Express Application / Router
 
 This package helps to make "sitemap" of the APIs.
 
-## Todo
+## Features
+- Support spying `express()` application and `express.Router()`
+- Optionally group collected API routes by path (of different HTTP methods)
 
-- Extract into library
-- Extract test cases
+## Usage Example
+```typescript
+import express, { Request, Response } from 'express'
+import { groupRoutesByPath, getSpyRoutes, spyRoutes } from 'collect-express-routes'
+
+let app = express()
+spyRoutes(app)
+
+app.use(express.json())
+
+// direct routing is supported
+app.get('/users', echo)
+app.post('/users', echo)
+app.get('/users/:id', echo)
+app.patch('/users/:id', echo)
+app.delete('/users/:id', echo)
+
+// using router is also supported
+let memoRouter = express.Router()
+memoRouter.post('/', echo)
+memoRouter.get('/:id', echo)
+memoRouter.patch('/:id', echo)
+memoRouter.delete('/:id', echo)
+app.use('/memo', memoRouter)
+
+console.log(getSpyRoutes(app))
+/* output:
+[
+  { method: 'get', path: '/users' },
+  { method: 'post', path: '/users' },
+  { method: 'get', path: '/users/:id' },
+  { method: 'patch', path: '/users/:id' },
+  { method: 'delete', path: '/users/:id' },
+  { method: 'post', path: '/memo' },
+  { method: 'get', path: '/memo/:id' },
+  { method: 'patch', path: '/memo/:id' },
+  { method: 'delete', path: '/memo/:id' }
+]
+*/
+
+console.log(groupRoutesByPath(getSpyRoutes(app)))
+/* output:
+{
+  '/users': [ 'get', 'post' ],
+  '/users/:id': [ 'get', 'patch', 'delete' ],
+  '/memo': [ 'post' ],
+  '/memo/:id': [ 'get', 'patch', 'delete' ]
+}
+*/
+
+function echo(req: Request, res: Response) {
+  res.json({ method: req.method, path: req.path })
+}
+
+```
+
+Details see [spy.spec.ts](./spy.spec.ts)
 
 ## License
 

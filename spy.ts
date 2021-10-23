@@ -64,24 +64,22 @@ export function spyRoutes(app: IRouter) {
     app[method] = makeSpy(method)
   }
 
-  {
-    const Route = app.route.bind(app)
-    function spyRoute(path: string) {
-      const route = Route(path)
-      for (const method of spyMethods) {
-        if (method === 'use') {
-          // use is not a method on app.route
-          continue
-        }
-        route[method] = function() {
-          spyRoutes.push({ method, path })
-          return route
-        }
+  const appSubRoute = app.route.bind(app)
+  function spySubRoute(path: string) {
+    const subRoute = appSubRoute(path)
+    for (const method of spyMethods) {
+      if (method === 'use') {
+        // use is not a method on app.route
+        continue
       }
-      return route
+      subRoute[method] = function() {
+        spyRoutes.push({ method, path })
+        return subRoute
+      }
     }
-    app.route = spyRoute
+    return subRoute
   }
+  app.route = spySubRoute
 }
 
 export function getSpyRoutes(app: IRouter): SpyRoute[] {

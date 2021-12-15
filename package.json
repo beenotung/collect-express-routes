@@ -1,6 +1,6 @@
 {
   "name": "collect-express-routes",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Collect all API routes in Express Application / Router",
   "main": "spy.js",
   "types": "spy.d.ts",
